@@ -1,0 +1,1061 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>main</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-04-25"><meta name="DC.source" content="main.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#4">Reading Data</a></li><li><a href="#5">Q1 - Plot the signal of U and V wrt x</a></li><li><a href="#6">Q2 - Plot the probability density function (PDF) of U and V. Show that the PDF satisfies the equation (3.16) in the textbook.</a></li><li><a href="#7">Q3 - Show that U and V are statistically homogeneous in the x direction.</a></li><li><a href="#8">Q- 4 Compute the ensemble averages of U and V</a></li><li><a href="#9">Q - 5 Plot the scatter plot of U and V.</a></li><li><a href="#10">Q6 Plot the joint probability density function (JPDF) of u and v, where u and v are velocity fluctuations in the streamwise and wall-normal directions, respectively. Show that theJPDF satisfies the equation (3.89) and (3.90) in the textbook</a></li><li><a href="#11">Q7 - Compute the variance of U and V and the covariance of U and V</a></li><li><a href="#12">Q 8 - Plot the autocorrelation functions f(r/h) and g(r/h) and compute the corresponding integral length scales</a></li></ul></div><pre class="codeinput"><span class="comment">% ID - 202183504, Name - Choudhary Kailash</span>
+</pre><p>Original Code Link: <a href="https://github.com/Kailash303904/Statistical-discription-of-Turbulent-Flow.git">GitHub_Code</a></p><pre class="codeinput">clear <span class="string">all</span>
+close <span class="string">all</span>
+</pre><h2 id="4">Reading Data</h2><pre class="codeinput">clc
+data_path = <span class="string">"/media/ksm/Kailash_3/Kailash/Course_work/Turbulence/Project/dataset"</span>
+addpath(data_path);
+
+
+startRow = 2;
+formatSpec = <span class="string">'%13f%13f%f%[^\n\r]'</span>;
+
+n_files = dir(fullfile(data_path, <span class="string">'*.dat'</span>));
+
+data = {};
+<span class="keyword">for</span> i=1:numel(n_files)
+
+    filename = strcat(sprintf(<span class="string">'INS_Vel_%06d.dat'</span>, i));
+    fileID = fopen(filename,<span class="string">'r'</span>);
+    dataArray = textscan(fileID, formatSpec, <span class="string">'Delimiter'</span>, <span class="string">''</span>, <span class="string">'WhiteSpace'</span>, <span class="string">''</span>, <span class="string">'TextType'</span>, <span class="string">'string'</span>, <span class="string">'HeaderLines'</span> ,startRow-1, <span class="string">'EndOfLine'</span>, <span class="string">'\r\n'</span>);
+
+    data{i} = table(dataArray{1:end-1}, <span class="string">'VariableNames'</span>, {<span class="string">'X'</span>,<span class="string">'U'</span>,<span class="string">'V'</span>});
+<span class="keyword">end</span>
+clear <span class="string">fileID</span> <span class="string">dataArray</span> <span class="string">startRow</span> <span class="string">i</span> <span class="string">formatSpec</span>;
+</pre><pre class="codeoutput">
+data_path = 
+
+    "/media/ksm/Kailash_3/Kailash/Course_work/Turbulence/Project/dataset"
+
+</pre><h2 id="5">Q1 - Plot the signal of U and V wrt x</h2><pre class="codeinput">figure(1)
+data1 = data{1};
+subplot(1,2,1);
+plot(data1.X, data1.U, <span class="string">'-.b'</span>,<span class="string">'LineWidth'</span>,2,<span class="string">'MarkerSize'</span>,1);
+xlabel(<span class="string">'X'</span>);
+ylabel(<span class="string">'U'</span>);
+title(<span class="string">'X v/s U'</span>);
+set(gca, <span class="string">'FontSize'</span>, 10);
+
+subplot(1,2,2);
+plot(data1.X, data1.V, <span class="string">'-.g'</span>,<span class="string">'LineWidth'</span>,2,<span class="string">'MarkerSize'</span>,1);
+xlabel(<span class="string">'X'</span>);
+ylabel(<span class="string">'V'</span>);
+title(<span class="string">'X v/s V'</span>)
+sgtitle(<span class="string">'Q1 - U and V wrt x'</span>, <span class="string">'FontWeight'</span>, <span class="string">'Bold'</span>);
+set(gca, <span class="string">'FontSize'</span>, 10);
+set(gcf, <span class="string">'Units'</span>, <span class="string">'Inches'</span>, <span class="string">'Position'</span>, [0, 0, 12, 6], <span class="string">'PaperUnits'</span>, <span class="string">'Inches'</span>, <span class="string">'PaperSize'</span>, [12,6])
+</pre><img vspace="5" hspace="5" src="main_01.png" alt=""> <h2 id="6">Q2 - Plot the probability density function (PDF) of U and V. Show that the PDF satisfies the equation (3.16) in the textbook.</h2><pre class="codeinput"><span class="comment">% As all velocity data will satisfy eq 3.16. So to have denced data set,</span>
+<span class="comment">% lets combine all data</span>
+
+clc
+U = [];
+V = [];
+X = data{1}.X;
+
+
+<span class="keyword">for</span> i=1:numel(data)
+    U = [U, data{i}.U];
+    V = [V, data{i}.V];
+<span class="keyword">end</span>
+
+<span class="comment">% So, basically, U_a has all the u-velocity data. Each coloum will have</span>
+<span class="comment">% data corresponding to one value of time. And each row will have data</span>
+<span class="comment">% corresponding to one value of possition. Same for V_a</span>
+
+
+
+
+lgd = {};
+lgd_V = {};
+times = [1, 10, 20, 30, 40];
+
+
+CM = jet(length(times));
+
+figure(2)
+
+<span class="keyword">for</span> i=1:numel(times)
+    U_i = U(:,times(i));
+    V_i = V(:,times(i));
+
+
+    U_mean = mean(U_i);
+    U_skew = skewness(U_i);
+    U_std = std(U_i);
+
+    V_mean = mean(V_i);
+    V_skew = skewness(V_i);
+    V_std = std(V_i);
+
+    <span class="comment">% pd = fitdist(U_i, 'Normal'); %pdf(pd, U_range);</span>
+    U_range = 0:0.001:1;
+    U_pdf = pdf(<span class="string">'Normal'</span>,U_range, mean(U_i),std(U_i));
+
+    area_U = trapz(U_range, U_pdf);
+    ax1 = subplot(1,2,1);
+    fig1 = plot(U_range, U_pdf, <span class="string">'color'</span>, CM(i, :), <span class="string">'LineWidth'</span>, 2);
+    hold <span class="string">on</span>
+    lgd{i} = strcat(<span class="string">'Time = '</span>, num2str(times(i)));
+
+
+
+    <span class="comment">%pd = fitdist(V_i, 'Normal');  %pdf(pd, V_range);</span>
+    V_range = -0.15:0.001:0.15;
+    V_pdf = pdf(<span class="string">'Normal'</span>,V_range, mean(V_i),std(V_i));
+    area_V = trapz(V_range, V_pdf);
+    ax2 = subplot(1,2,2);
+    plot(V_range, V_pdf, <span class="string">'color'</span>, CM(i, :), <span class="string">'LineWidth'</span>, 2)
+    hold <span class="string">on</span>
+    disp([<span class="string">'Time = '</span>, num2str(times(i))]);
+    disp([<span class="string">'Area unter the U-PDF = '</span>, num2str(area_U)]);
+    disp([<span class="string">'Area unter the V-PDF = '</span>, num2str(area_V)]);
+    disp(<span class="string">'--------------------------------'</span>)
+
+
+
+<span class="keyword">end</span>
+sgtitle(<span class="string">'Q2 - PDF of U and V at different times'</span>, <span class="string">'FontWeight'</span>, <span class="string">'Bold'</span>);
+legend(ax1, lgd);
+legend(ax2, lgd);
+
+set(ax1, <span class="string">'FontSize'</span>, 12);
+set(ax2, <span class="string">'FontSize'</span>, 12);
+
+xlabel(ax1, <span class="string">'U'</span>);
+xlabel(ax2, <span class="string">'V'</span>);
+
+ylabel(ax1, <span class="string">'PDF'</span>);
+ylabel(ax2, <span class="string">'PDF'</span>);
+set(gcf, <span class="string">'Units'</span>, <span class="string">'Inches'</span>, <span class="string">'Position'</span>,<span class="keyword">...</span>
+    [0, 0, 12, 6], <span class="string">'PaperUnits'</span>, <span class="string">'Inches'</span>, <span class="string">'PaperSize'</span>, [12 6])
+
+<span class="comment">% name = 'Part2.png';</span>
+<span class="comment">% print('-dpng','-r600',name);</span>
+<span class="comment">%</span>
+</pre><pre class="codeoutput">Time = 1
+Area unter the U-PDF = 0.99849
+Area unter the V-PDF = 0.99977
+--------------------------------
+Time = 10
+Area unter the U-PDF = 1
+Area unter the V-PDF = 1
+--------------------------------
+Time = 20
+Area unter the U-PDF = 1
+Area unter the V-PDF = 1
+--------------------------------
+Time = 30
+Area unter the U-PDF = 0.99999
+Area unter the V-PDF = 1
+--------------------------------
+Time = 40
+Area unter the U-PDF = 0.99979
+Area unter the V-PDF = 1
+--------------------------------
+</pre><img vspace="5" hspace="5" src="main_02.png" alt=""> <h2 id="7">Q3 - Show that U and V are statistically homogeneous in the x direction.</h2><pre class="codeinput"><span class="comment">% Statistically homogeneous in x direction means if we replace x with x+X,</span>
+<span class="comment">% the statistics (mean) should not change. So, lets take mean of U and V</span>
+<span class="comment">% for all time intances (row wise), so we will get time mean velocity of</span>
+<span class="comment">% each position</span>
+
+<span class="comment">% Dear Sir, the last point (X = 12.54) U-mean deviating largely from the mean</span>
+<span class="comment">% data, so I am ignoring that data in plot(last row of the data set)</span>
+
+
+
+U_mean = mean(U, 2); <span class="comment">% time mean</span>
+V_mean = mean(V, 2);
+
+
+<span class="comment">% Mean absolute percentage error</span>
+
+abs_err_U = 100 * (1/length(U_mean)) * sum(abs((U_mean - mean(U_mean))./U_mean));
+
+<span class="comment">% Absolute value of V is very low, so the absolute error in V coming high</span>
+abs_err_V = 100 * (1/length(V_mean)) * sum(abs((V_mean - mean(V_mean))./V_mean));
+
+
+
+figure
+plot(X(1:end-1), U_mean(1:end-1), <span class="string">'r'</span>, <span class="string">'LineWidth'</span>, 2);
+hold <span class="string">on</span>
+plot(X, V_mean, <span class="string">'b'</span>, <span class="string">'LineWidth'</span>, 2);
+title(<span class="string">'Time mean U and V at all values of x'</span>)
+xlabel(<span class="string">'X'</span>);
+ylabel(<span class="string">'Time averaged Velocity'</span>);
+legend(<span class="string">'U_{avg}'</span>, <span class="string">'V_{avg}'</span>);
+
+set(gcf, <span class="string">'Units'</span>, <span class="string">'Inches'</span>, <span class="string">'Position'</span>, [0, 0, 12, 6], <span class="string">'PaperUnits'</span>, <span class="string">'Inches'</span>, <span class="string">'PaperSize'</span>, [12, 6])
+<span class="comment">% name = 'Part3.png';</span>
+<span class="comment">% print('-dpng','-r600',name);</span>
+disp(<span class="string">'The mean U and V are almost constant with positions, So, they are homogeneous with x'</span>);
+</pre><pre class="codeoutput">The mean U and V are almost constant with positions, So, they are homogeneous with x
+</pre><img vspace="5" hspace="5" src="main_03.png" alt=""> <h2 id="8">Q- 4 Compute the ensemble averages of U and V</h2><pre class="codeinput"><span class="comment">% ensemble averaging is just average over N-repetitions, So, bassically at</span>
+<span class="comment">% each position, is is time average.</span>
+<span class="comment">% In code it is just average of each row (Same as last question)</span>
+
+<span class="comment">% Morever, ensemble average itself a random variable and average of this</span>
+<span class="comment">% random veriable will be &lt;U&gt;</span>
+
+<span class="comment">% Mean of ensemble average random variable</span>
+
+avg_ens_U = mean(U_mean); <span class="comment">% &lt;U&gt;</span>
+avg_ens_V = mean(V_mean); <span class="comment">% &lt;V&gt;</span>
+
+disp(<span class="string">'ensempble average already plotted in Q3'</span>);
+disp([<span class="string">'&lt;U&gt; = '</span>, num2str(avg_ens_U)]);
+disp([<span class="string">'&lt;V&gt; = '</span>, num2str(avg_ens_V)]);
+</pre><pre class="codeoutput">ensempble average already plotted in Q3
+&lt;U&gt; = 0.43098
+&lt;V&gt; = 0.0017193
+</pre><h2 id="9">Q - 5 Plot the scatter plot of U and V.</h2><pre class="codeinput">lgd = {};
+times = [1, 10, 20, 30, 40];
+
+
+CM = jet(length(times));
+
+
+
+
+<span class="keyword">for</span> i=1:numel(times)
+    U_i = U(:,times(i));
+    V_i = V(:,times(i));
+
+
+    figure
+    scatterhist(U_i, V_i, <span class="string">'Kernel'</span>,<span class="string">'on'</span>,<span class="string">'Location'</span>,<span class="string">'SouthWest'</span>,<span class="keyword">...</span>
+    <span class="string">'Direction'</span>,<span class="string">'out'</span>,<span class="string">'Color'</span>,<span class="string">'b'</span>,<span class="string">'LineWidth'</span>,2,<span class="string">'Marker'</span>,<span class="string">'s'</span>,<span class="string">'MarkerSize'</span>,5);<span class="comment">%, 'MarkerEdgeColor','red', 'MarkerFaceColor',[1 .6 .6])</span>
+
+    title(strcat(<span class="string">'Time = '</span>, num2str(times(i))));
+    set(gca, <span class="string">'FontSize'</span>, 12);
+    axis(<span class="string">'square'</span>);
+    xlabel(<span class="string">'U'</span>);
+    ylabel(<span class="string">'V'</span>);
+    set(gcf, <span class="string">'Units'</span>, <span class="string">'Inches'</span>, <span class="string">'Position'</span>,<span class="keyword">...</span>
+        [0, 0, 12, 6], <span class="string">'PaperUnits'</span>, <span class="string">'Inches'</span>, <span class="string">'PaperSize'</span>, [12 6]);
+
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="main_04.png" alt=""> <img vspace="5" hspace="5" src="main_05.png" alt=""> <img vspace="5" hspace="5" src="main_06.png" alt=""> <img vspace="5" hspace="5" src="main_07.png" alt=""> <img vspace="5" hspace="5" src="main_08.png" alt=""> <h2 id="10">Q6 Plot the joint probability density function (JPDF) of u and v, where u and v are velocity fluctuations in the streamwise and wall-normal directions, respectively. Show that theJPDF satisfies the equation (3.89) and (3.90) in the textbook</h2><pre class="codeinput"><span class="comment">% Perturbation is just u = U - &lt;U&gt;. Value of &lt;U&gt; can be calculated by</span>
+<span class="comment">% taking avgrage of ensemble average. (Eq. 3.109)</span>
+
+
+u = U - avg_ens_U;
+v = V - avg_ens_V;
+
+
+u_range = linspace(-0.4, 0.4, 100);
+v_range = linspace(-0.15, 0.15, 100);
+
+u_pdf = pdf(<span class="string">'Normal'</span>, u_range, mean2(u), std2(u));
+v_pdf = pdf(<span class="string">'Normal'</span>, v_range, mean2(v), std2(v));
+
+
+
+uv_pdf = v_pdf'*u_pdf;
+[u_r, v_r] = meshgrid(u_range, v_range);
+
+
+figure
+surf(u_r, v_r, uv_pdf);
+
+colormap(<span class="string">'parula'</span>);
+cb = colorbar(<span class="string">'eastoutside'</span>);
+set(gca, <span class="string">'FontSize'</span>, 12);
+xlabel(<span class="string">'u'</span>);
+ylabel(<span class="string">'v'</span>);
+zlabel(<span class="string">'PDF'</span>);
+set(gcf, <span class="string">'Units'</span>, <span class="string">'Inches'</span>, <span class="string">'Position'</span>,<span class="keyword">...</span>
+    [0, 0, 12, 6], <span class="string">'PaperUnits'</span>, <span class="string">'Inches'</span>, <span class="string">'PaperSize'</span>, [12 6])
+title(<span class="string">'Joint PDF of U and V for all time and position data'</span>);
+
+
+
+<span class="comment">% eq 3.89</span>
+f2_v2 = trapz(u_range, uv_pdf');
+figure
+plot(v_range, f2_v2, <span class="string">'-r'</span>, <span class="string">'LineWidth'</span>, 2);
+hold <span class="string">on</span>
+plot(v_range, v_pdf, <span class="string">'sb'</span>, <span class="string">'LineWidth'</span>, 2);
+
+
+xlabel(<span class="string">'v'</span>);
+ylabel(<span class="string">'PDF'</span>);
+legend(<span class="string">'integration of uv-pdf over V1'</span>, <span class="string">'v-pdf'</span>);
+
+set(gcf, <span class="string">'Units'</span>, <span class="string">'Inches'</span>, <span class="string">'Position'</span>, [0, 0, 12, 6], <span class="string">'PaperUnits'</span>, <span class="string">'Inches'</span>, <span class="string">'PaperSize'</span>, [12, 6])
+title(<span class="string">'Equation 3.89  validation'</span>);
+disp(<span class="string">'Plots of both side of equation 3.89 are overlapping'</span>);
+
+area_uv_pdf = trapz(u_range, trapz(v_range, uv_pdf));
+disp([<span class="string">'Equation 3.90, area under the uv_pdf = '</span>, num2str(area_uv_pdf)]);
+</pre><pre class="codeoutput">Plots of both side of equation 3.89 are overlapping
+Equation 3.90, area under the uv_pdf = 0.99952
+</pre><img vspace="5" hspace="5" src="main_09.png" alt=""> <img vspace="5" hspace="5" src="main_10.png" alt=""> <h2 id="11">Q7 - Compute the variance of U and V and the covariance of U and V</h2><pre class="codeinput"><span class="comment">% variance and covariance have step to substracet the mean &lt;U&gt; from the</span>
+<span class="comment">% data set. So basically variance or covariance of U and V wil be same as</span>
+<span class="comment">% variance or covariance of u and v.</span>
+
+
+
+
+lgd = {};
+times = [1, 10, 20, 30, 40];
+
+
+CM = jet(length(times));
+
+
+
+
+<span class="keyword">for</span> i=1:numel(times)
+    U_i = U(:,times(i));
+    V_i = V(:,times(i));
+
+
+
+    disp([<span class="string">'Time = '</span>, num2str(times(i))]);
+    <span class="comment">% Covariance</span>
+    cov_UV = cov(U_i, V_i)
+
+    <span class="comment">%Principle axis - vec- eigenvector, val - eign values matrix</span>
+
+    [vec, val] = eig(cov_UV);
+    prin_axis = [vec(:,1) * val(1,1), vec(:,2) * val(2,2)]
+    sz = 40;
+    figure
+    scatter(U_i, V_i, sz,<span class="string">'MarkerEdgeColor'</span>,[0 .5 .5],<span class="keyword">...</span>
+              <span class="string">'MarkerFaceColor'</span>,[0 .7 .7],<span class="keyword">...</span>
+              <span class="string">'LineWidth'</span>,1.5);
+    hold <span class="string">on</span>
+    <span class="comment">%plotv(vec, '-', 'LineWidth', 2)</span>
+    <span class="comment">%set(v1, 'LineWidth', 2)</span>
+
+    m1 = vec(2,1)/vec(1,1);
+    b1 = mean(V_i) - m1 * mean(U_i);
+
+    m2 = vec(2,2)/vec(1,2);
+    b2 = mean(V_i) - m2 * mean(U_i);
+
+    axisx = [min(U_i), max(U_i)];
+    axis1y = m1 * axisx + b1;
+    axis2y = m2 * axisx + b2;
+
+
+    <span class="keyword">if</span> val(1,1)&gt;=val(2,2)
+        plot(axisx, axis1y, <span class="string">'-r'</span>, <span class="string">'Linewidth'</span>, 2);
+    <span class="keyword">else</span>
+        plot(axisx, axis2y, <span class="string">'-r'</span>, <span class="string">'Linewidth'</span>, 2);
+    <span class="keyword">end</span>
+    title([<span class="string">'var(U) = '</span>, num2str(var(U_i)), <span class="string">', var(V) = '</span>, num2str(var(V_i)), <span class="string">', covariance(U, V) = '</span>, num2str(cov_UV(2,1))]);
+    xlim(axisx);ylim([min(V_i),max(V_i)]);
+    <span class="comment">%plot</span>
+
+
+    legend(strcat(<span class="string">'Time = '</span>, num2str(times(i))), <span class="string">'First Principal Axis'</span>);
+    set(gca, <span class="string">'FontSize'</span>, 12);
+    axis(<span class="string">'square'</span>);
+    xlabel(<span class="string">'U'</span>);
+    ylabel(<span class="string">'V'</span>);
+    set(gcf, <span class="string">'Units'</span>, <span class="string">'Inches'</span>, <span class="string">'Position'</span>,<span class="keyword">...</span>
+        [0, 0, 12, 6], <span class="string">'PaperUnits'</span>, <span class="string">'Inches'</span>, <span class="string">'PaperSize'</span>, [12 6])
+    disp(<span class="string">'-----------------------------------'</span>);
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">Time = 1
+
+cov_UV =
+
+    0.0114   -0.0019
+   -0.0019    0.0016
+
+
+prin_axis =
+
+   -0.0002   -0.0115
+   -0.0012    0.0021
+
+-----------------------------------
+Time = 10
+
+cov_UV =
+
+    0.0107   -0.0007
+   -0.0007    0.0003
+
+
+prin_axis =
+
+   -0.0000   -0.0107
+   -0.0002    0.0007
+
+-----------------------------------
+Time = 20
+
+cov_UV =
+
+    0.0042   -0.0001
+   -0.0001    0.0001
+
+
+prin_axis =
+
+   -0.0000   -0.0042
+   -0.0001    0.0001
+
+-----------------------------------
+Time = 30
+
+cov_UV =
+
+    0.0085   -0.0005
+   -0.0005    0.0003
+
+
+prin_axis =
+
+   -0.0000   -0.0085
+   -0.0003    0.0005
+
+-----------------------------------
+Time = 40
+
+cov_UV =
+
+    0.0127   -0.0012
+   -0.0012    0.0002
+
+
+prin_axis =
+
+   -0.0000   -0.0127
+   -0.0001    0.0012
+
+-----------------------------------
+</pre><img vspace="5" hspace="5" src="main_11.png" alt=""> <img vspace="5" hspace="5" src="main_12.png" alt=""> <img vspace="5" hspace="5" src="main_13.png" alt=""> <img vspace="5" hspace="5" src="main_14.png" alt=""> <img vspace="5" hspace="5" src="main_15.png" alt=""> <h2 id="12">Q 8 - Plot the autocorrelation functions f(r/h) and g(r/h) and compute the corresponding integral length scales</h2><pre class="codeinput">lgd = {};
+times = [1, 10, 20, 30, 40];
+
+
+CM = jet(length(times));
+
+clc
+
+
+<span class="keyword">for</span> i=1:numel(times)
+    u_i = u(:,times(i));
+    v_i = v(:,times(i));
+
+
+    <span class="comment">% auto correlation function (Matlab funtion "autocorr" returns the normalized auto-covariance so no need to devide by variance)</span>
+    [fr, r_fr] = autocorr(u_i);
+    [gr, r_gr]= autocorr(v_i);
+
+
+    <span class="comment">% To find out the lenth scale, we need to consider the auto-covariance</span>
+    <span class="comment">% function only up to positive values (1 to 0).</span>
+
+    <span class="comment">% first negative value finder</span>
+    <span class="keyword">if</span> any(fr&lt;0)
+        fr_1st_neg = find(~(fr&gt;=0), 1, <span class="string">'first'</span>);
+        fr = fr(1:fr_1st_neg-1);
+        r_fr = r_fr(1:fr_1st_neg-1); <span class="comment">% to start from zero</span>
+    <span class="keyword">end</span>
+
+    <span class="keyword">if</span> any(gr&lt;0)
+        gr_1st_neg = find(~(gr&gt;=0), 1, <span class="string">'first'</span>);
+        gr = gr(1:gr_1st_neg-1);
+        r_gr = r_gr(1:gr_1st_neg-1); <span class="comment">% to start from zero</span>
+    <span class="keyword">end</span>
+
+
+
+
+    <span class="comment">% integral length scales</span>
+    tl_u = trapz(r_fr, fr);
+    tl_v = trapz(r_gr, gr);
+
+
+    <span class="comment">% exp(-|r|/tl) plot</span>
+    f_exp = exp(-r_fr/tl_u);
+    g_exp = exp(-r_gr/tl_v);
+
+
+    figure
+    plot(r_fr, fr, <span class="string">'--b'</span>, <span class="string">'Linewidth'</span>, 2)
+    hold <span class="string">on</span>
+    plot(r_fr, f_exp, <span class="string">'-k'</span>, <span class="string">'linewidth'</span>, 2);
+    stem(r_fr, fr, <span class="string">':r'</span>, <span class="string">'filled'</span>, <span class="string">'linewidth'</span>, 1.5)
+
+
+    dim = [0.55 0.4 0.3 0.3];
+    str = {[<span class="string">'\tau_L(u) = '</span>, num2str(tl_u)]};
+    annotation(<span class="string">'textbox'</span>,dim,<span class="string">'String'</span>,str,<span class="string">'FitBoxToText'</span>,<span class="string">'on'</span>, <span class="string">'Fontsize'</span>, 12);
+    legend(<span class="string">'f(r)'</span>, <span class="string">'exp(-|r|/\tau)'</span>);
+    grid <span class="string">on</span>
+    title([<span class="string">'Auto Correlation Fintion of u at Time = '</span>, num2str(times(i))])
+    set(gca, <span class="string">'FontSize'</span>, 12);
+    axis(<span class="string">'square'</span>);
+    xlabel(<span class="string">'r'</span>);
+    ylabel(<span class="string">'f(r)'</span>);
+    set(gcf, <span class="string">'Units'</span>, <span class="string">'Inches'</span>, <span class="string">'Position'</span>,<span class="keyword">...</span>
+        [0, 0, 12, 6], <span class="string">'PaperUnits'</span>, <span class="string">'Inches'</span>, <span class="string">'PaperSize'</span>, [12 6])
+
+
+    figure
+    plot(r_gr, gr, <span class="string">'--b'</span>, <span class="string">'Linewidth'</span>, 2)
+    hold <span class="string">on</span>
+    plot(r_gr, g_exp, <span class="string">'-k'</span>, <span class="string">'linewidth'</span>, 2);
+    stem(r_gr, gr, <span class="string">':r'</span>, <span class="string">'filled'</span>, <span class="string">'linewidth'</span>, 1.5)
+
+
+    dim = [0.55 0.4 0.3 0.3];
+    str = {[<span class="string">'\tau_L(v) = '</span>, num2str(tl_v)]};
+    annotation(<span class="string">'textbox'</span>,dim,<span class="string">'String'</span>,str,<span class="string">'FitBoxToText'</span>,<span class="string">'on'</span>, <span class="string">'Fontsize'</span>, 12);
+
+    legend(<span class="string">'g(r)'</span>, <span class="string">'exp(-|r|/\tau)'</span>);
+    grid <span class="string">on</span>
+    title([<span class="string">'Auto Correlation Fintion of vat Time = '</span>, num2str(times(i))])
+    set(gca, <span class="string">'FontSize'</span>, 12);
+    axis(<span class="string">'square'</span>);
+    xlabel(<span class="string">'r'</span>);
+    ylabel(<span class="string">'f(r)'</span>);
+    set(gcf, <span class="string">'Units'</span>, <span class="string">'Inches'</span>, <span class="string">'Position'</span>,<span class="keyword">...</span>
+        [0, 0, 12, 6], <span class="string">'PaperUnits'</span>, <span class="string">'Inches'</span>, <span class="string">'PaperSize'</span>, [12 6])
+
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="main_16.png" alt=""> <img vspace="5" hspace="5" src="main_17.png" alt=""> <img vspace="5" hspace="5" src="main_18.png" alt=""> <img vspace="5" hspace="5" src="main_19.png" alt=""> <img vspace="5" hspace="5" src="main_20.png" alt=""> <img vspace="5" hspace="5" src="main_21.png" alt=""> <img vspace="5" hspace="5" src="main_22.png" alt=""> <img vspace="5" hspace="5" src="main_23.png" alt=""> <img vspace="5" hspace="5" src="main_24.png" alt=""> <img vspace="5" hspace="5" src="main_25.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% ID - 202183504, Name - Choudhary Kailash
+%%
+% Original Code Link:
+% <https://github.com/Kailash303904/Statistical-discription-of-Turbulent-Flow.git GitHub_Code>
+
+%%
+clear all
+close all
+%% Reading Data
+clc
+data_path = "/media/ksm/Kailash_3/Kailash/Course_work/Turbulence/Project/dataset"
+addpath(data_path);
+
+
+startRow = 2;
+formatSpec = '%13f%13f%f%[^\n\r]';
+
+n_files = dir(fullfile(data_path, '*.dat'));
+
+data = {};
+for i=1:numel(n_files)
+    
+    filename = strcat(sprintf('INS_Vel_%06d.dat', i));
+    fileID = fopen(filename,'r');
+    dataArray = textscan(fileID, formatSpec, 'Delimiter', '', 'WhiteSpace', '', 'TextType', 'string', 'HeaderLines' ,startRow-1, 'EndOfLine', '\r\n');
+
+    data{i} = table(dataArray{1:end-1}, 'VariableNames', {'X','U','V'});
+end
+clear fileID dataArray startRow i formatSpec;
+
+
+%% Q1 - Plot the signal of U and V wrt x
+
+figure(1)
+data1 = data{1};
+subplot(1,2,1);
+plot(data1.X, data1.U, '-.b','LineWidth',2,'MarkerSize',1);
+xlabel('X');
+ylabel('U');
+title('X v/s U');
+set(gca, 'FontSize', 10);
+
+subplot(1,2,2);
+plot(data1.X, data1.V, '-.g','LineWidth',2,'MarkerSize',1);
+xlabel('X');
+ylabel('V');
+title('X v/s V')
+sgtitle('Q1 - U and V wrt x', 'FontWeight', 'Bold');
+set(gca, 'FontSize', 10);
+set(gcf, 'Units', 'Inches', 'Position', [0, 0, 12, 6], 'PaperUnits', 'Inches', 'PaperSize', [12,6])
+
+
+%% Q2 - Plot the probability density function (PDF) of U and V. Show that the PDF satisfies the equation (3.16) in the textbook.
+
+% As all velocity data will satisfy eq 3.16. So to have denced data set,
+% lets combine all data
+
+clc
+U = [];
+V = [];
+X = data{1}.X;
+
+
+for i=1:numel(data)
+    U = [U, data{i}.U];
+    V = [V, data{i}.V];
+end
+
+% So, basically, U_a has all the u-velocity data. Each coloum will have
+% data corresponding to one value of time. And each row will have data
+% corresponding to one value of possition. Same for V_a
+
+
+
+
+lgd = {};
+lgd_V = {};
+times = [1, 10, 20, 30, 40];
+
+
+CM = jet(length(times));
+
+figure(2)
+
+for i=1:numel(times)
+    U_i = U(:,times(i));
+    V_i = V(:,times(i));
+
+
+    U_mean = mean(U_i);
+    U_skew = skewness(U_i);
+    U_std = std(U_i);
+
+    V_mean = mean(V_i);
+    V_skew = skewness(V_i);
+    V_std = std(V_i);
+
+    % pd = fitdist(U_i, 'Normal'); %pdf(pd, U_range);
+    U_range = 0:0.001:1;
+    U_pdf = pdf('Normal',U_range, mean(U_i),std(U_i));
+    
+    area_U = trapz(U_range, U_pdf);
+    ax1 = subplot(1,2,1);
+    fig1 = plot(U_range, U_pdf, 'color', CM(i, :), 'LineWidth', 2);
+    hold on
+    lgd{i} = strcat('Time = ', num2str(times(i)));
+    
+    
+    
+    %pd = fitdist(V_i, 'Normal');  %pdf(pd, V_range);
+    V_range = -0.15:0.001:0.15;
+    V_pdf = pdf('Normal',V_range, mean(V_i),std(V_i));
+    area_V = trapz(V_range, V_pdf);
+    ax2 = subplot(1,2,2);
+    plot(V_range, V_pdf, 'color', CM(i, :), 'LineWidth', 2)
+    hold on
+    disp(['Time = ', num2str(times(i))]);
+    disp(['Area unter the U-PDF = ', num2str(area_U)]);
+    disp(['Area unter the V-PDF = ', num2str(area_V)]);
+    disp('REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH')
+
+    
+    
+end
+sgtitle('Q2 - PDF of U and V at different times', 'FontWeight', 'Bold');
+legend(ax1, lgd);
+legend(ax2, lgd);
+
+set(ax1, 'FontSize', 12);
+set(ax2, 'FontSize', 12);
+
+xlabel(ax1, 'U');
+xlabel(ax2, 'V');
+
+ylabel(ax1, 'PDF');
+ylabel(ax2, 'PDF');
+set(gcf, 'Units', 'Inches', 'Position',...
+    [0, 0, 12, 6], 'PaperUnits', 'Inches', 'PaperSize', [12 6])
+
+% name = 'Part2.png';
+% print('-dpng','-r600',name);
+% 
+%% Q3 - Show that U and V are statistically homogeneous in the x direction.
+
+% Statistically homogeneous in x direction means if we replace x with x+X,
+% the statistics (mean) should not change. So, lets take mean of U and V
+% for all time intances (row wise), so we will get time mean velocity of
+% each position
+
+% Dear Sir, the last point (X = 12.54) U-mean deviating largely from the mean
+% data, so I am ignoring that data in plot(last row of the data set)
+
+
+
+U_mean = mean(U, 2); % time mean
+V_mean = mean(V, 2);
+
+
+% Mean absolute percentage error
+
+abs_err_U = 100 * (1/length(U_mean)) * sum(abs((U_mean - mean(U_mean))./U_mean));
+
+% Absolute value of V is very low, so the absolute error in V coming high
+abs_err_V = 100 * (1/length(V_mean)) * sum(abs((V_mean - mean(V_mean))./V_mean));
+
+
+
+figure
+plot(X(1:end-1), U_mean(1:end-1), 'r', 'LineWidth', 2);
+hold on
+plot(X, V_mean, 'b', 'LineWidth', 2);
+title('Time mean U and V at all values of x')
+xlabel('X');
+ylabel('Time averaged Velocity');
+legend('U_{avg}', 'V_{avg}');
+
+set(gcf, 'Units', 'Inches', 'Position', [0, 0, 12, 6], 'PaperUnits', 'Inches', 'PaperSize', [12, 6])
+% name = 'Part3.png';
+% print('-dpng','-r600',name);
+disp('The mean U and V are almost constant with positions, So, they are homogeneous with x');
+
+
+%% Q- 4 Compute the ensemble averages of U and V
+
+% ensemble averaging is just average over N-repetitions, So, bassically at
+% each position, is is time average.
+% In code it is just average of each row (Same as last question)
+
+% Morever, ensemble average itself a random variable and average of this
+% random veriable will be <U>
+
+% Mean of ensemble average random variable
+
+avg_ens_U = mean(U_mean); % <U>
+avg_ens_V = mean(V_mean); % <V>
+
+disp('ensempble average already plotted in Q3');
+disp(['<U> = ', num2str(avg_ens_U)]);
+disp(['<V> = ', num2str(avg_ens_V)]);
+
+
+%% Q - 5 Plot the scatter plot of U and V.
+
+
+
+
+lgd = {};
+times = [1, 10, 20, 30, 40];
+
+
+CM = jet(length(times));
+
+
+
+
+for i=1:numel(times)
+    U_i = U(:,times(i));
+    V_i = V(:,times(i));
+
+
+    figure
+    scatterhist(U_i, V_i, 'Kernel','on','Location','SouthWest',...
+    'Direction','out','Color','b','LineWidth',2,'Marker','s','MarkerSize',5);%, 'MarkerEdgeColor','red', 'MarkerFaceColor',[1 .6 .6])
+
+    title(strcat('Time = ', num2str(times(i))));
+    set(gca, 'FontSize', 12);
+    axis('square');
+    xlabel('U');
+    ylabel('V');
+    set(gcf, 'Units', 'Inches', 'Position',...
+        [0, 0, 12, 6], 'PaperUnits', 'Inches', 'PaperSize', [12 6]);
+
+end
+
+
+%% Q6 Plot the joint probability density function (JPDF) of u and v, where u and v are velocity fluctuations in the streamwise and wall-normal directions, respectively. Show that theJPDF satisfies the equation (3.89) and (3.90) in the textbook
+
+
+% Perturbation is just u = U - <U>. Value of <U> can be calculated by
+% taking avgrage of ensemble average. (Eq. 3.109)
+
+
+u = U - avg_ens_U;
+v = V - avg_ens_V;
+
+
+u_range = linspace(-0.4, 0.4, 100);
+v_range = linspace(-0.15, 0.15, 100);
+
+u_pdf = pdf('Normal', u_range, mean2(u), std2(u));
+v_pdf = pdf('Normal', v_range, mean2(v), std2(v));
+
+
+
+uv_pdf = v_pdf'*u_pdf;
+[u_r, v_r] = meshgrid(u_range, v_range);
+
+
+figure
+surf(u_r, v_r, uv_pdf);
+
+colormap('parula');
+cb = colorbar('eastoutside'); 
+set(gca, 'FontSize', 12);
+xlabel('u');
+ylabel('v');
+zlabel('PDF');
+set(gcf, 'Units', 'Inches', 'Position',...
+    [0, 0, 12, 6], 'PaperUnits', 'Inches', 'PaperSize', [12 6])
+title('Joint PDF of U and V for all time and position data');
+
+
+
+% eq 3.89
+f2_v2 = trapz(u_range, uv_pdf');
+figure
+plot(v_range, f2_v2, '-r', 'LineWidth', 2);
+hold on
+plot(v_range, v_pdf, 'sb', 'LineWidth', 2);
+
+
+xlabel('v');
+ylabel('PDF');
+legend('integration of uv-pdf over V1', 'v-pdf');
+
+set(gcf, 'Units', 'Inches', 'Position', [0, 0, 12, 6], 'PaperUnits', 'Inches', 'PaperSize', [12, 6])
+title('Equation 3.89  validation');
+disp('Plots of both side of equation 3.89 are overlapping');
+
+area_uv_pdf = trapz(u_range, trapz(v_range, uv_pdf));
+disp(['Equation 3.90, area under the uv_pdf = ', num2str(area_uv_pdf)]);
+
+
+%% Q7 - Compute the variance of U and V and the covariance of U and V
+
+% variance and covariance have step to substracet the mean <U> from the
+% data set. So basically variance or covariance of U and V wil be same as
+% variance or covariance of u and v.
+
+
+
+
+lgd = {};
+times = [1, 10, 20, 30, 40];
+
+
+CM = jet(length(times));
+
+
+
+
+for i=1:numel(times)
+    U_i = U(:,times(i));
+    V_i = V(:,times(i));
+
+    
+    
+    disp(['Time = ', num2str(times(i))]);
+    % Covariance
+    cov_UV = cov(U_i, V_i)
+    
+    %Principle axis - vec- eigenvector, val - eign values matrix
+     
+    [vec, val] = eig(cov_UV);
+    prin_axis = [vec(:,1) * val(1,1), vec(:,2) * val(2,2)]
+    sz = 40;
+    figure
+    scatter(U_i, V_i, sz,'MarkerEdgeColor',[0 .5 .5],...
+              'MarkerFaceColor',[0 .7 .7],...
+              'LineWidth',1.5);
+    hold on
+    %plotv(vec, '-', 'LineWidth', 2)
+    %set(v1, 'LineWidth', 2)
+    
+    m1 = vec(2,1)/vec(1,1);
+    b1 = mean(V_i) - m1 * mean(U_i);
+    
+    m2 = vec(2,2)/vec(1,2);
+    b2 = mean(V_i) - m2 * mean(U_i);
+    
+    axisx = [min(U_i), max(U_i)];
+    axis1y = m1 * axisx + b1;
+    axis2y = m2 * axisx + b2;
+    
+
+    if val(1,1)>=val(2,2)
+        plot(axisx, axis1y, '-r', 'Linewidth', 2);
+    else
+        plot(axisx, axis2y, '-r', 'Linewidth', 2);
+    end
+    title(['var(U) = ', num2str(var(U_i)), ', var(V) = ', num2str(var(V_i)), ', covariance(U, V) = ', num2str(cov_UV(2,1))]);
+    xlim(axisx);ylim([min(V_i),max(V_i)]);
+    %plot
+    
+    
+    legend(strcat('Time = ', num2str(times(i))), 'First Principal Axis');
+    set(gca, 'FontSize', 12);
+    axis('square');
+    xlabel('U');
+    ylabel('V');
+    set(gcf, 'Units', 'Inches', 'Position',...
+        [0, 0, 12, 6], 'PaperUnits', 'Inches', 'PaperSize', [12 6])
+    disp('REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-');
+end
+
+
+
+
+
+%% Q 8 - Plot the autocorrelation functions f(r/h) and g(r/h) and compute the corresponding integral length scales
+
+
+
+
+
+
+lgd = {};
+times = [1, 10, 20, 30, 40];
+
+
+CM = jet(length(times));
+
+clc
+
+
+for i=1:numel(times)
+    u_i = u(:,times(i));
+    v_i = v(:,times(i));
+
+
+    % auto correlation function (Matlab funtion "autocorr" returns the normalized auto-covariance so no need to devide by variance)
+    [fr, r_fr] = autocorr(u_i);
+    [gr, r_gr]= autocorr(v_i);
+
+    
+    % To find out the lenth scale, we need to consider the auto-covariance
+    % function only up to positive values (1 to 0).
+    
+    % first negative value finder
+    if any(fr<0)
+        fr_1st_neg = find(~(fr>=0), 1, 'first');
+        fr = fr(1:fr_1st_neg-1);
+        r_fr = r_fr(1:fr_1st_neg-1); % to start from zero
+    end
+    
+    if any(gr<0)
+        gr_1st_neg = find(~(gr>=0), 1, 'first');
+        gr = gr(1:gr_1st_neg-1);
+        r_gr = r_gr(1:gr_1st_neg-1); % to start from zero
+    end
+    
+    
+    
+    
+    % integral length scales
+    tl_u = trapz(r_fr, fr);
+    tl_v = trapz(r_gr, gr);
+
+    
+    % exp(-|r|/tl) plot
+    f_exp = exp(-r_fr/tl_u);
+    g_exp = exp(-r_gr/tl_v);
+    
+    
+    figure
+    plot(r_fr, fr, 'REPLACE_WITH_DASH_DASHb', 'Linewidth', 2)
+    hold on
+    plot(r_fr, f_exp, '-k', 'linewidth', 2);
+    stem(r_fr, fr, ':r', 'filled', 'linewidth', 1.5)
+    
+    
+    dim = [0.55 0.4 0.3 0.3];
+    str = {['\tau_L(u) = ', num2str(tl_u)]};
+    annotation('textbox',dim,'String',str,'FitBoxToText','on', 'Fontsize', 12);
+    legend('f(r)', 'exp(-|r|/\tau)');
+    grid on
+    title(['Auto Correlation Fintion of u at Time = ', num2str(times(i))])
+    set(gca, 'FontSize', 12);
+    axis('square');
+    xlabel('r');
+    ylabel('f(r)');
+    set(gcf, 'Units', 'Inches', 'Position',...
+        [0, 0, 12, 6], 'PaperUnits', 'Inches', 'PaperSize', [12 6])
+    
+    
+    figure
+    plot(r_gr, gr, 'REPLACE_WITH_DASH_DASHb', 'Linewidth', 2)
+    hold on
+    plot(r_gr, g_exp, '-k', 'linewidth', 2);
+    stem(r_gr, gr, ':r', 'filled', 'linewidth', 1.5)
+    
+
+    dim = [0.55 0.4 0.3 0.3];
+    str = {['\tau_L(v) = ', num2str(tl_v)]};
+    annotation('textbox',dim,'String',str,'FitBoxToText','on', 'Fontsize', 12);
+    
+    legend('g(r)', 'exp(-|r|/\tau)');
+    grid on
+    title(['Auto Correlation Fintion of vat Time = ', num2str(times(i))])
+    set(gca, 'FontSize', 12);
+    axis('square');
+    xlabel('r');
+    ylabel('f(r)');
+    set(gcf, 'Units', 'Inches', 'Position',...
+        [0, 0, 12, 6], 'PaperUnits', 'Inches', 'PaperSize', [12 6])
+    
+end
+
+
+##### SOURCE END #####
+--></body></html>
